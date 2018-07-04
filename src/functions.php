@@ -38,7 +38,7 @@ function strpos(string $haystack, string $needle): int
 /**
  * Replaces \strpos
  *
- * To be used when using strpos to check if a string contains another string
+ * To be used when using strpos to check if a string contains the needle
  *
  * @param string $haystack
  * @param string $needle
@@ -53,4 +53,24 @@ function stringContains(string $haystack, string $needle): bool
     }
 
     return true;
+}
+
+/**
+ * Replaces \strpos
+ *
+ * To be used when checking if a string starts with the needle
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function stringStartsWith(string $haystack, string $needle): bool
+{
+    $pos = \strpos($haystack, $needle);
+    if (0 === $pos) {
+        return true;
+    }
+
+    return false;
 }
