@@ -4,7 +4,7 @@
   "type": "project",
   "description": "Type safe wrappers around internal functions that return mixed types",
   "require": {
-    "php": "^7.0"
+    "php": "^7.1"
   },
   "require-dev": {
     "phpstan/phpstan-shim": "dev-master@dev",
@@ -14,6 +14,13 @@
     "files": [
       "src/functions.php"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ts\\tests\\": [
+        "tests"
+      ]
+    }
   },
   "config": {
     "bin-dir": "bin"

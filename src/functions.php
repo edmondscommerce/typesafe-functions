@@ -11,3 +11,13 @@ function file_get_contents(string $path): string
 
     return $contents;
 }
+
+function strpos(string $haystack, string $needle): int
+{
+    $pos = \strpos($haystack, $needle);
+    if (false === $pos) {
+        throw new \RuntimeException('Failing finding need "'.$needle.'" in haystack "'.$haystack.'"');
+    }
+
+    return $pos;
+}
