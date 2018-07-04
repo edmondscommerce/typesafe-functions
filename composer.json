@@ -1,0 +1,17 @@
+{
+  "require": {
+    "php": "^7.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan-shim": "dev-master@dev",
+    "edmondscommerce/phpqa": "dev-master@dev"
+  },
+  "autoload": {
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}
