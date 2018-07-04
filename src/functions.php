@@ -12,6 +12,19 @@ function file_get_contents(string $path): string
     return $contents;
 }
 
+/**
+ * Replaces \strpos
+ *
+ * To be used when actually looking for the string position
+ *
+ * If you are checking for the existence of the string, then you should replace with \ts\stringContains
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return int
+ *
+ */
 function strpos(string $haystack, string $needle): int
 {
     $pos = \strpos($haystack, $needle);
@@ -20,4 +33,24 @@ function strpos(string $haystack, string $needle): int
     }
 
     return $pos;
+}
+
+/**
+ * Replaces \strpos
+ *
+ * To be used when using strpos to check if a string contains another string
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function stringContains(string $haystack, string $needle): bool
+{
+    $pos = \strpos($haystack, $needle);
+    if (false === $pos) {
+        return false;
+    }
+
+    return true;
 }
