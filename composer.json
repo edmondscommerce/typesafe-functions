@@ -1,4 +1,8 @@
 {
+  "name": "edmondscommerce/typesafe-functions",
+  "license": "MIT",
+  "type": "project",
+  "description": "Type safe wrappers around internal functions that return mixed types",
   "require": {
     "php": "^7.0"
   },
