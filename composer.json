@@ -11,6 +11,11 @@
     "edmondscommerce/phpqa": "dev-master@dev"
   },
   "autoload": {
+    "psr-4": {
+      "ts\\": [
+        "src"
+      ]
+    },
     "files": [
       "src/functions.php"
     ]
@@ -18,7 +23,7 @@
   "autoload-dev": {
     "psr-4": {
       "ts\\tests\\": [
-        "tests"
+        "Tests"
       ]
     }
   },
