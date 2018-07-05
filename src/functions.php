@@ -74,3 +74,15 @@ function stringStartsWith(string $haystack, string $needle): bool
 
     return false;
 }
+
+/**
+ * Replaces \print_r($var, true)
+ *
+ * @param mixed $var
+ *
+ * @return string
+ */
+function varToString($var): string
+{
+    return (string)\print_r($var, true);
+}

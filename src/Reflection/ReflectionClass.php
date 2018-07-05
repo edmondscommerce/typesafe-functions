@@ -2,6 +2,9 @@
 
 namespace ts\Reflection;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class ReflectionClass
 {
     /**
@@ -50,7 +53,7 @@ class ReflectionClass
     private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
     {
         /**
-         * @var $instance self
+         * @var self $instance
          */
         $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
         $instance->reflectionClass = $reflectionClass;
@@ -83,7 +86,7 @@ class ReflectionClass
      */
     public static function export(string $fqn): string
     {
-        return \ReflectionClass::export($fqn, true);
+        return (string)\ReflectionClass::export($fqn, true);
     }
 
     public function __toString(): string
@@ -118,7 +121,12 @@ class ReflectionClass
 
     public function getFileName(): string
     {
-        return $this->reflectionClass->getFileName();
+        $filename = $this->reflectionClass->getFileName();
+        if (false === $filename) {
+            throw new \RuntimeException('the reflection class does not have a filename');
+        }
+
+        return $filename;
     }
 
     public function getStartLine(): int
@@ -136,7 +144,7 @@ class ReflectionClass
         return (string)$this->reflectionClass->getDocComment();
     }
 
-    public function getConstructor(): \ReflectionMethod
+    public function getConstructor(): ?\ReflectionMethod
     {
         return $this->reflectionClass->getConstructor();
     }
@@ -177,7 +185,9 @@ class ReflectionClass
      */
     public function getProperties(?int $filter = null): array
     {
-        return $this->reflectionClass->getProperties($filter);
+        return (null === $filter) ?
+            $this->reflectionClass->getProperties()
+            : $this->reflectionClass->getProperties($filter);
     }
 
     public function getReflectionConstant(string $name): \ReflectionClassConstant
@@ -285,6 +295,11 @@ class ReflectionClass
         return $this->reflectionClass->getModifiers();
     }
 
+    /**
+     * @param mixed $object
+     *
+     * @return bool
+     */
     public function isInstance($object): bool
     {
         return $this->reflectionClass->isInstance($object);
@@ -315,7 +330,7 @@ class ReflectionClass
      */
     public function newInstanceArgs(array $args = null)
     {
-        return $this->reflectionClass->newInstanceArgs($args);
+        return $this->reflectionClass->newInstanceArgs($args ?? []);
     }
 
     /**
@@ -324,7 +339,12 @@ class ReflectionClass
      */
     public function getParentClass(): self
     {
-        return $this->constructFromReflectionClass($this->reflectionClass->getParentClass());
+        $parent = $this->reflectionClass->getParentClass();
+        if (false === $parent) {
+            throw new \RuntimeException('reflection class does not have a parent');
+        }
+
+        return $this->constructFromReflectionClass($parent);
     }
 
     public function isSubclassOf(string $class): bool

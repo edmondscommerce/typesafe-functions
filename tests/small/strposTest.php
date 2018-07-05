@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace ts\Tests\small;
+namespace ts\tests\small;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class file_get_contents
  *
- * @package \ts\Tests\small
+ * @package \ts\tests\small
  * @covers  \ts\strpos
  */
 class strposTest extends TestCase

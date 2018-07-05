@@ -25,3 +25,26 @@ multiple replacements depending on use case:
 ### `stripos`
 
 //TODO - but will be as above, but case insensitive
+
+### `print_r`
+
+When passing true, this returns a string, for example
+```php
+<?php
+$string=\print_r(['a'=>1], true);
+```
+To make this type safe, we replace with 
+```php
+<?php
+$string = \ts\varToString(['a'=>1]);
+```
+
+## Reflection
+
+### ReflectionClass
+
+#### Find Replace
+| Find  | Replace   |
+|---|---|
+|`new \ReflectionClass` | `new \ts\Reflection\ReflectionClass` |
+| `: \ReflectionClass`  | `: \ts\Reflection\ReflectionClass` |
