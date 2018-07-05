@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ts\tests\small;
+namespace ts\Tests\Small;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class file_get_contents
  *
- * @package \ts\tests\small
+ * @package \ts\Tests\Small
  * @covers  \ts\stringStartsWith
  */
-class stringStartsWithTest extends TestCase
+class StringStartsWithTest extends TestCase
 {
     /**
      * @test

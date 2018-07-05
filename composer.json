@@ -22,7 +22,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ts\\tests\\": [
+      "ts\\Tests\\": [
         "tests"
       ]
     }

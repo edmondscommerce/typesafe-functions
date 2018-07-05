@@ -1,10 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ts\tests\small\Reflection;
+namespace ts\Tests\Small\Reflection;
 
 use PHPUnit\Framework\TestCase;
 use ts\Reflection\ReflectionClass;
 
+/**
+ * Class ReflectionClassTest
+ *
+ * @package ts\Tests\Small\Reflection
+ * @SuppressWarnings(PHPMD)
+ */
 class ReflectionClassTest extends TestCase
 {
     private const FAKE = 'value';
@@ -286,7 +292,6 @@ class ReflectionClassTest extends TestCase
         }
         $actual = self::$instance->getParentClass()->getNamespaceName();
         self::assertSame($expected, $actual);
-
     }
 
     public function testGetInterfaceNames(): void

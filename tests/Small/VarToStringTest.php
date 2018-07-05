@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ts\tests\small;
+namespace ts\Tests\Small;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class varToStringTest
  *
- * @package ts\tests\small
+ * @package ts\Tests\Small
  * @covers  \ts\varToString
  */
-class varToStringTest extends TestCase
+class VarToStringTest extends TestCase
 {
     /**
      * @test

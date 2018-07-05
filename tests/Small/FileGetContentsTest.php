@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ts\tests\small;
+namespace ts\Tests\Small;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class file_get_contents
  *
- * @package \ts\tests\small
+ * @package \ts\Tests\Small
  * @covers  \ts\file_get_contents
  */
-class file_get_contentsTest extends TestCase
+class FileGetContentsTest extends TestCase
 {
     /**
      * @test
