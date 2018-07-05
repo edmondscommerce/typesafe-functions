@@ -69,8 +69,8 @@ class ReflectionClass
     private function convertArrayOfReflectionToSelf(array $reflectionClasses): array
     {
         $return = [];
-        foreach ($reflectionClasses as $reflectionClass) {
-            $return[] = $this->constructFromReflectionClass($reflectionClass);
+        foreach ($reflectionClasses as $key => $reflectionClass) {
+            $return[$key] = $this->constructFromReflectionClass($reflectionClass);
         }
 
         return $return;
@@ -78,13 +78,12 @@ class ReflectionClass
 
     /**
      * @param string $fqn
-     * @param bool   $return
      *
      * @return string
      */
-    public static function export(string $fqn, $return = false): string
+    public static function export(string $fqn): string
     {
-        return \ReflectionClass::export($fqn, $return);
+        return \ReflectionClass::export($fqn, true);
     }
 
     public function __toString(): string
@@ -154,6 +153,10 @@ class ReflectionClass
 
     public function getMethods(?int $filter = null): array
     {
+        if (null === $filter) {
+            return $this->reflectionClass->getMethods();
+        }
+
         return $this->reflectionClass->getMethods($filter);
     }
 
@@ -374,7 +377,7 @@ class ReflectionClass
         return $this->reflectionClass->implementsInterface($interface);
     }
 
-    public function getExtension(): \ReflectionExtension
+    public function getExtension(): ?\ReflectionExtension
     {
         return $this->reflectionClass->getExtension();
     }

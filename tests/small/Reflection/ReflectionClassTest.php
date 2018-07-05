@@ -10,7 +10,7 @@ class ReflectionClassTest extends TestCase
 
     private const FAKE = 'value';
 
-    private static $fake = 'value';
+    public static $fake = 'value';
 
     /**
      * @var ReflectionClass
@@ -61,22 +61,22 @@ class ReflectionClassTest extends TestCase
 
     public function testGetReflectionConstant()
     {
-        $expected = self::FAKE;
+        $expected = self::$instance->getReflectionConstant('FAKE');
         $actual   = self::$instance->getReflectionConstant('FAKE');
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetStaticPropertyValue()
     {
-        $expected = self::$fake;
+        $expected = self::$raw->getStaticPropertyValue('fake');
         $actual   = self::$instance->getStaticPropertyValue('fake');
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testNewInstanceArgs()
     {
-        $expected = new \SplBool();
-        $actual   = (new ReflectionClass('\SplBool'))->newInstanceArgs();
+        $expected = new \SplFileInfo(__FILE__);
+        $actual   = (new ReflectionClass(\SplFileInfo::class))->newInstanceArgs([__FILE__]);
         self::assertEquals($expected, $actual);
     }
 
@@ -139,13 +139,18 @@ class ReflectionClassTest extends TestCase
         $expected = self::$raw->getMethods();
         $actual   = self::$instance->getMethods();
         self::assertEquals($expected, $actual);
+
+        $filter   = \ReflectionMethod::IS_PUBLIC;
+        $expected = self::$raw->getMethods($filter);
+        $actual   = self::$instance->getMethods($filter);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetReflectionConstants()
     {
         $expected = self::$raw->getReflectionConstants();
         $actual   = self::$instance->getReflectionConstants();
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetStartLine()
@@ -164,8 +169,8 @@ class ReflectionClassTest extends TestCase
 
     public function testSetStaticPropertyValue()
     {
-        $expected = 'updated'
-        $actual   = self::$instance->setStaticPropertyValue('fake', $expected);
+        $expected = 'updated';
+        self::$instance->setStaticPropertyValue('fake', $expected);
         self::assertSame($expected, self::$instance->getStaticPropertyValue('fake'));
         self::$instance->setStaticPropertyValue('fake', 'value');
     }
@@ -179,8 +184,8 @@ class ReflectionClassTest extends TestCase
 
     public function testNewInstance()
     {
-        $expected = new \SplBool();
-        $actual   = (new ReflectionClass(\SplBool::class))->newInstance();
+        $expected = new \stdClass();
+        $actual   = (new ReflectionClass(\stdClass::class))->newInstance();
         self::assertEquals($expected, $actual);
     }
 
@@ -207,7 +212,7 @@ class ReflectionClassTest extends TestCase
 
     public function testIsInstance()
     {
-        $object   = new \SplBool();
+        $object   = new \SplDoublyLinkedList();
         $expected = false;
         $actual   = self::$instance->isInstance($object);
         self::assertSame($expected, $actual);
@@ -243,9 +248,9 @@ class ReflectionClassTest extends TestCase
 
     public function testGetInterfaces()
     {
-        $expected = self::$raw->getInterfaces();
-        $actual   = self::$instance->getInterfaces();
-        self::assertSame($expected, $actual);
+        $expected = \array_keys(self::$raw->getInterfaces());
+        $actual   = \array_keys(self::$instance->getInterfaces());
+        self::assertEquals($expected, $actual);
     }
 
     public function testIsCloneable()
@@ -260,20 +265,20 @@ class ReflectionClassTest extends TestCase
         $filter   = \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PRIVATE;
         $expected = self::$raw->getProperties($filter);
         $actual   = self::$instance->getProperties($filter);
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testNewInstanceWithoutConstructor()
     {
-        $expected = new \SplBool();
-        $actual   = (new ReflectionClass(\SplBool::class))->newInstanceWithoutConstructor();
+        $expected = new \stdClass();
+        $actual   = (new ReflectionClass(\stdClass::class))->newInstanceWithoutConstructor();
         self::assertEquals($expected, $actual);
     }
 
     public function testGetParentClass()
     {
-        $expected = self::$raw->getParentClass();
-        $actual   = self::$instance->getParentClass();
+        $expected = self::$raw->getParentClass()->getNamespaceName();
+        $actual   = self::$instance->getParentClass()->getNamespaceName();
         self::assertSame($expected, $actual);
 
     }
@@ -301,8 +306,8 @@ class ReflectionClassTest extends TestCase
 
     public function testExport()
     {
-        $expected = self::$raw::export(self::class);
-        $actual   = self::$instance::export(self::class);
+        $expected = \substr_count(self::$raw::export(self::class, true), 'Method');
+        $actual   = \substr_count(self::$instance::export(self::class), 'Method');
         self::assertSame($expected, $actual);
     }
 
@@ -317,7 +322,7 @@ class ReflectionClassTest extends TestCase
     {
         $expected = self::$raw->getProperty('fake');
         $actual   = self::$instance->getProperty('fake');
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testIsIterateable()
@@ -359,7 +364,7 @@ class ReflectionClassTest extends TestCase
     {
         $expected = self::$raw->getMethod(__FUNCTION__);
         $actual   = self::$instance->getMethod(__FUNCTION__);
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testInNamespace()
