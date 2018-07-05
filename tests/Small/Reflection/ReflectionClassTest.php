@@ -301,7 +301,7 @@ class ReflectionClassTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function test__toString(): void
+    public function testToString(): void
     {
         $expected = self::$raw->__toString();
         $actual   = self::$instance->__toString();
