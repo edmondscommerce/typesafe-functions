@@ -2,6 +2,13 @@
 
 namespace ts;
 
+/**
+ * File get contents that always returns a string, throws a \RuntimeException on error
+ *
+ * @param string $path
+ *
+ * @return string
+ */
 function file_get_contents(string $path): string
 {
     $contents = \file_get_contents($path);
@@ -13,7 +20,7 @@ function file_get_contents(string $path): string
 }
 
 /**
- * Replaces \strpos
+ * Replaces \strpos (1 of 3)
  *
  * To be used when actually looking for the string position
  *
@@ -36,7 +43,7 @@ function strpos(string $haystack, string $needle): int
 }
 
 /**
- * Replaces \strpos
+ * Replaces \strpos (2 of 3)
  *
  * To be used when using strpos to check if a string contains the needle
  *
@@ -56,7 +63,7 @@ function stringContains(string $haystack, string $needle): bool
 }
 
 /**
- * Replaces \strpos
+ * Replaces \strpos (3 of 3)
  *
  * To be used when checking if a string starts with the needle
  *
@@ -76,7 +83,7 @@ function stringStartsWith(string $haystack, string $needle): bool
 }
 
 /**
- * Replaces \print_r($var, true)
+ * Replaces \print_r($var, true), always returns a string
  *
  * @param mixed $var
  *
@@ -88,7 +95,7 @@ function varToString($var): string
 }
 
 /**
- * Ensures in_array is in strict mode.
+ * Replaces \in_array, always runs in strict comparison mode
  *
  * @param mixed $needle
  * @param array $haystack
