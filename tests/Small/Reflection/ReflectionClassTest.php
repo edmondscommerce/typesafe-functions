@@ -185,7 +185,7 @@ class ReflectionClassTest extends TestCase
 
     public function testGetDocComment(): void
     {
-        $expected = '';
+        $expected = self::$raw->getDocComment();
         $actual   = self::$instance->getDocComment();
         self::assertSame($expected, $actual);
     }

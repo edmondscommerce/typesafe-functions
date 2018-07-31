@@ -36,13 +36,13 @@ multiple replacements depending on use case:
 
 By default this is not strict and requires a third parameter of true. 
 
-Simply replace with `\ts\in_array` instead to have this handled automatically.
+Simply replace with `\ts\arrayContains` instead to have this handled automatically.
 
 This improves readability and also prevents various mutation testing escapees that would be otherwise hard to catch
 
 Find: `(|\\)in_array\((.+?),(.+?),.+?\)`
 
-Replace: `\\ts\\in_array($2, $3)`
+Replace: `\\ts\\arrayContains($2, $3)`
 
 
 ### Debug Functions

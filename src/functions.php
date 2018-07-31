@@ -88,14 +88,14 @@ function varToString($var): string
 }
 
 /**
- * Ensures in_array is in strict mode
+ * Ensures in_array is in strict mode.
  *
  * @param mixed $needle
  * @param array $haystack
  *
  * @return bool
  */
-function in_array($needle, array $haystack): bool
+function arrayContains($needle, array $haystack): bool
 {
     return \in_array($needle, $haystack, true);
 }
