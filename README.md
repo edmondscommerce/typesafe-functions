@@ -4,13 +4,17 @@ To assist with boilerplate around working with internal functions but ensuing th
 
 ## Functions Replaced:
 
-### `file_get_contents`
+### File Functions
+
+#### `file_get_contents`
 
 returns false|string by default
 
 replaced with `\ts\file_get_contents`
 
-### `strpos`
+### String Functions
+
+#### `strpos`
 
 returns false|int by default
 
@@ -22,11 +26,28 @@ multiple replacements depending on use case:
 
 `\ts\stringStartsWith` to check if the haystack begins with the needle
 
-### `stripos`
+#### `stripos`
 
 //TODO - but will be as above, but case insensitive
 
-### `print_r`
+### Array Functions
+
+#### `in_array`
+
+By default this is not strict and requires a third parameter of true. 
+
+Simply replace with `\ts\in_array` instead to have this handled automatically.
+
+This improves readability and also prevents various mutation testing escapees that would be otherwise hard to catch
+
+Find: `(|\\)in_array\((.+?),(.+?),.+?\)`
+
+Replace: `\\ts\\in_array($2, $3)`
+
+
+### Debug Functions
+
+#### `print_r`
 
 When passing true, this returns a string, for example
 ```php
@@ -43,8 +64,15 @@ $string = \ts\varToString(['a'=>1]);
 
 ### ReflectionClass
 
+Always returns a single type
+
+Normalises the type, for example to empty strings or throws exceptions on failure
+
 #### Find Replace
 | Find  | Replace   |
 |---|---|
 |`new \ReflectionClass` | `new \ts\Reflection\ReflectionClass` |
 | `: \ReflectionClass`  | `: \ts\Reflection\ReflectionClass` |
+| `@var \ReflectionClass` | `@var \ts\Reflection\ReflectionClass ` |
+| `(\ReflectionClass $` | `(\ts\Reflection\ReflectionClass $` |
+| `@param \ReflectionClass $` | `@param \ts\Reflection\ReflectionClass $ ` |

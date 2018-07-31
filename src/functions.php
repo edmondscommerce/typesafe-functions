@@ -86,3 +86,16 @@ function varToString($var): string
 {
     return (string)\print_r($var, true);
 }
+
+/**
+ * Ensures in_array is in strict mode
+ *
+ * @param mixed $needle
+ * @param array $haystack
+ *
+ * @return bool
+ */
+function in_array($needle, array $haystack): bool
+{
+    return \in_array($needle, $haystack, true);
+}
