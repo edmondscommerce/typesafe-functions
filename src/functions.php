@@ -3,7 +3,9 @@
 namespace ts;
 
 /**
- * File get contents that always returns a string, throws a \RuntimeException on error
+ * File get contents that always returns a string
+ *
+ * Throws a \RuntimeException on error
  *
  * @param string $path
  *
@@ -13,10 +15,31 @@ function file_get_contents(string $path): string
 {
     $contents = \file_get_contents($path);
     if (false === $contents) {
-        throw new \RuntimeException('Failed getting contents of file: '.$path);
+        throw new \RuntimeException('Failed getting contents of file: ' . $path);
     }
 
     return $contents;
+}
+
+/**
+ * File put contents always returns a bool (true)
+ *
+ * Throws a \RuntimeException on error
+ *
+ * @param string $filename
+ * @param string $data
+ * @param int    $flags
+ * @param null   $context
+ *
+ * @return bool
+ */
+function file_put_contents(string $filename, string $data, int $flags = 0, $context = null): bool
+{
+    $result = \file_put_contents($filename, $data, $flags, $context);
+    if (false !== $result) {
+        return true;
+    }
+    throw new \RuntimeException('Failed writing data to file ' . $filename);
 }
 
 /**
@@ -36,7 +59,7 @@ function strpos(string $haystack, string $needle): int
 {
     $pos = \strpos($haystack, $needle);
     if (false === $pos) {
-        throw new \RuntimeException('Failing finding need "'.$needle.'" in haystack "'.$haystack.'"');
+        throw new \RuntimeException('Failing finding need "' . $needle . '" in haystack "' . $haystack . '"');
     }
 
     return $pos;

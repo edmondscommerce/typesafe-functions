@@ -4,6 +4,9 @@ namespace ts\Tests\Small;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \ts\print_r
+ */
 class PrintRTest extends TestCase
 {
     /**
