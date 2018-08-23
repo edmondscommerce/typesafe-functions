@@ -1,0 +1,33 @@
+<?php declare(strict_types=1);
+
+namespace ts\Tests\Small;
+
+use PHPUnit\Framework\TestCase;
+
+class PrintRTest extends TestCase
+{
+    /**
+     * @test
+     * @small
+     */
+    public function itReturnsAStringWhenPassedAnArray()
+    {
+        $mixed  = [
+            0 => '123',
+            1.2,
+        ];
+        $actual = \ts\print_r($mixed, true);
+        self::assertInternalType('string', $actual);
+    }
+
+    /**
+     * @test
+     * @small
+     */
+    public function itReturnsAStringWhenPassedAFloat()
+    {
+        $mixed  = 1.234;
+        $actual = \ts\print_r($mixed, true);
+        self::assertInternalType('string', $actual);
+    }
+}

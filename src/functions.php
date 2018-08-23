@@ -106,3 +106,18 @@ function arrayContains($needle, array $haystack): bool
 {
     return \in_array($needle, $haystack, true);
 }
+
+/**
+ * Replaces \print_r
+ *
+ * @param $mixed
+ *
+ * @return string
+ */
+function print_r($mixed, bool $return): ?string
+{
+    if (true === $return) {
+        return (string)\print_r($mixed, true);
+    }
+    \print_r($mixed);
+}
