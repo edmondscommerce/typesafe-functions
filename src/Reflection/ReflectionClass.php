@@ -10,12 +10,11 @@ class ReflectionClass
     /**
      * @var \ReflectionClass
      */
-    private $reflectionClass;
-
+    private static $selfReflection;
     /**
      * @var \ReflectionClass
      */
-    private static $selfReflection;
+    private $reflectionClass;
 
     /**
      * ReflectionClass constructor.
@@ -27,56 +26,6 @@ class ReflectionClass
     public function __construct(string $fqn)
     {
         $this->reflectionClass = new \ReflectionClass($fqn);
-    }
-
-    /**
-     * @return \ReflectionClass
-     * @throws \ReflectionException
-     */
-    private function getSelfReflection(): \ReflectionClass
-    {
-        if (null === self::$selfReflection) {
-            self::$selfReflection = new \ReflectionClass(self::class);
-        }
-
-        return self::$selfReflection;
-    }
-
-    /**
-     * For when we need to return instances of self from an existing instance of \ReflectionClass
-     *
-     * @param \ReflectionClass $reflectionClass
-     *
-     * @return self
-     * @throws \ReflectionException
-     */
-    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
-    {
-        /**
-         * @var self $instance
-         */
-        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
-        $instance->reflectionClass = $reflectionClass;
-
-        return $instance;
-    }
-
-    /**
-     * Take an array of raw \ReflectionClass objects and return an array of self
-     *
-     * @param array $reflectionClasses
-     *
-     * @return array|self[]
-     * @throws \ReflectionException
-     */
-    private function convertArrayOfReflectionToSelf(array $reflectionClasses): array
-    {
-        $return = [];
-        foreach ($reflectionClasses as $key => $reflectionClass) {
-            $return[$key] = $this->constructFromReflectionClass($reflectionClass);
-        }
-
-        return $return;
     }
 
     /**
@@ -159,6 +108,11 @@ class ReflectionClass
         return $this->reflectionClass->getMethod($name);
     }
 
+    /**
+     * @param int|null $filter
+     *
+     * @return array|\ReflectionMethod[]
+     */
     public function getMethods(?int $filter = null): array
     {
         if (null === $filter) {
@@ -233,6 +187,56 @@ class ReflectionClass
     public function getInterfaces(): array
     {
         return $this->convertArrayOfReflectionToSelf($this->reflectionClass->getInterfaces());
+    }
+
+    /**
+     * Take an array of raw \ReflectionClass objects and return an array of self
+     *
+     * @param array $reflectionClasses
+     *
+     * @return array|self[]
+     * @throws \ReflectionException
+     */
+    private function convertArrayOfReflectionToSelf(array $reflectionClasses): array
+    {
+        $return = [];
+        foreach ($reflectionClasses as $key => $reflectionClass) {
+            $return[$key] = $this->constructFromReflectionClass($reflectionClass);
+        }
+
+        return $return;
+    }
+
+    /**
+     * For when we need to return instances of self from an existing instance of \ReflectionClass
+     *
+     * @param \ReflectionClass $reflectionClass
+     *
+     * @return self
+     * @throws \ReflectionException
+     */
+    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
+    {
+        /**
+         * @var self $instance
+         */
+        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance->reflectionClass = $reflectionClass;
+
+        return $instance;
+    }
+
+    /**
+     * @return \ReflectionClass
+     * @throws \ReflectionException
+     */
+    private function getSelfReflection(): \ReflectionClass
+    {
+        if (null === self::$selfReflection) {
+            self::$selfReflection = new \ReflectionClass(self::class);
+        }
+
+        return self::$selfReflection;
     }
 
     /**
