@@ -62,7 +62,7 @@ function strpos(string $haystack, string $needle): int
     $pos = \strpos($haystack, $needle);
     if (false === $pos)
     {
-        throw new \RuntimeException('Failing finding need "' . $needle . '" in haystack "' . $haystack . '"');
+        throw new \RuntimeException('Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"');
     }
 
     return $pos;
