@@ -195,3 +195,16 @@ function realpath(string $path)
 
     return $result;
 }
+
+/**
+ * @return resource
+ */
+function tmpfile()
+{
+    $result = \tmpfile();
+    if (false === \is_resource($result)) {
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
