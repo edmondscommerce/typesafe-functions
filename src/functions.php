@@ -14,8 +14,7 @@ namespace ts;
 function file_get_contents(string $path): string
 {
     $contents = \file_get_contents($path);
-    if (false === $contents)
-    {
+    if (false === $contents) {
         throw new \RuntimeException('Failed getting contents of file: ' . $path);
     }
 
@@ -29,16 +28,15 @@ function file_get_contents(string $path): string
  *
  * @param string $filename
  * @param string $data
- * @param int $flags
- * @param null $context
+ * @param int    $flags
+ * @param null   $context
  *
  * @return bool
  */
 function file_put_contents(string $filename, string $data, int $flags = 0, $context = null): bool
 {
     $result = \file_put_contents($filename, $data, $flags, $context);
-    if (false !== $result)
-    {
+    if (false !== $result) {
         return true;
     }
     throw new \RuntimeException('Failed writing data to file ' . $filename);
@@ -60,8 +58,7 @@ function file_put_contents(string $filename, string $data, int $flags = 0, $cont
 function strpos(string $haystack, string $needle): int
 {
     $pos = \strpos($haystack, $needle);
-    if (false === $pos)
-    {
+    if (false === $pos) {
         throw new \RuntimeException('Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"');
     }
 
@@ -81,8 +78,7 @@ function strpos(string $haystack, string $needle): int
 function stringContains(string $haystack, string $needle): bool
 {
     $pos = \strpos($haystack, $needle);
-    if (false === $pos)
-    {
+    if (false === $pos) {
         return false;
     }
 
@@ -102,8 +98,7 @@ function stringContains(string $haystack, string $needle): bool
 function stringStartsWith(string $haystack, string $needle): bool
 {
     $pos = \strpos($haystack, $needle);
-    if (0 === $pos)
-    {
+    if (0 === $pos) {
         return true;
     }
 
@@ -151,17 +146,51 @@ function print_r($mixed, bool $return): ?string
 }
 
 /**
- * @param string $time
+ * @param string   $time
  * @param int|null $now
+ *
  * @return false|int
  */
 function strtotime(string $time, int $now = null): int
 {
     $result = \is_int($now) ? \strtotime($time, $now) : \strtotime($time);
 
-    if ($result === false)
-    {
+    if ($result === false) {
         throw new \RuntimeException('Failed to get time from string: ' . $time);
+    }
+
+    return $result;
+}
+
+/**
+ * @param string   $pattern
+ * @param string   $replacement
+ * @param string   $subject
+ * @param int|null $limit
+ * @param int|null $count
+ *
+ * @return string
+ */
+function preg_replace(
+    string $pattern,
+    string $replacement,
+    string $subject,
+    ?int $limit = null,
+    ?int &$count = null
+): string {
+    $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
+    if (null === $result) {
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
+
+function realpath(string $path)
+{
+    $result = \realpath($path);
+    if (false === $result) {
+        throw new \RuntimeException('Failed getting realpath in ' . __METHOD__);
     }
 
     return $result;
