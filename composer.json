@@ -8,7 +8,7 @@
   },
   "require-dev": {
     "phpstan/phpstan-shim": "dev-master@dev",
-    "edmondscommerce/phpqa": "dev-master@dev"
+    "edmondscommerce/phpqa": "^1.0|^2.0"
   },
   "autoload": {
     "psr-4": {

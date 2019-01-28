@@ -175,8 +175,8 @@ function preg_replace(
     string $pattern,
     string $replacement,
     string $subject,
-    ?int $limit = null,
-    ?int &$count = null
+    int $limit = -1,
+    ?int &$count = 0
 ): string {
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
     if (null === $result) {
