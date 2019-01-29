@@ -9,7 +9,6 @@ use RuntimeException;
 
 /**
  * @package \ts\Tests\Small
- * @covers  \ts\strototime
  */
 class StrtotimeTest extends TestCase
 {
