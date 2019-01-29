@@ -2,6 +2,14 @@
 
 To assist with boilerplate around working with internal functions but ensuing that your code keeps tools like [phpstan](https://github.com/phpstan/phpstan) and [phpqa](https://github.com/edmondscommerce/phpqa) happy
 
+
+## See Alternative:
+https://github.com/thecodingmachine/safe
+
+This is a more comprehensive library of functions that is auto generated. 
+
+I prefer to only include functions that I actually use in this library, the vast majority of functions above will never be used and so I'm reluctant to bring them all in.
+
 ## Functions Replaced:
 
 ### File Functions
