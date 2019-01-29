@@ -13,7 +13,7 @@ trait SelfReflectionTrait
      * @return \ReflectionClass
      * @throws \ReflectionException
      */
-    private function getSelfReflection(): \ReflectionClass
+    private static function getSelfReflection(): \ReflectionClass
     {
         if (null === self::$selfReflection) {
             self::$selfReflection = new \ReflectionClass(self::class);
