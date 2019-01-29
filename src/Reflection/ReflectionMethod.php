@@ -80,12 +80,12 @@ class ReflectionMethod
     }
 
     /**
-     * @param object $object
-     * @param mixed  ...$parameters
+     * @param object|null $object
+     * @param mixed       ...$parameters
      *
      * @return mixed
      */
-    public function invoke(object $object = null, ...$parameters)
+    public function invoke(?object $object = null, ...$parameters)
     {
         return $this->reflectionMethod->invoke($object, ...$parameters);
     }
