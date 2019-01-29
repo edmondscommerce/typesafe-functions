@@ -7,10 +7,8 @@ namespace ts\Reflection;
  */
 class ReflectionClass
 {
-    /**
-     * @var \ReflectionClass
-     */
-    private static $selfReflection;
+    use SelfReflectionTrait;
+
     /**
      * @var \ReflectionClass
      */
@@ -80,12 +78,22 @@ class ReflectionClass
 
     public function getStartLine(): int
     {
-        return $this->reflectionClass->getStartLine();
+        $result = $this->reflectionClass->getStartLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getEndLine(): int
     {
-        return $this->reflectionClass->getEndLine();
+        $result = $this->reflectionClass->getEndLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getDocComment(): string
@@ -93,9 +101,14 @@ class ReflectionClass
         return (string)$this->reflectionClass->getDocComment();
     }
 
-    public function getConstructor(): ?\ReflectionMethod
+    public function getConstructor(): \ReflectionMethod
     {
-        return $this->reflectionClass->getConstructor();
+        $result = $this->reflectionClass->getConstructor();
+        if (null === $result) {
+            throw new \RuntimeException('Failed getting constructor in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function hasMethod(string $name): bool
@@ -103,9 +116,9 @@ class ReflectionClass
         return $this->reflectionClass->hasMethod($name);
     }
 
-    public function getMethod(string $name): \ReflectionMethod
+    public function getMethod(string $name): ReflectionMethod
     {
-        return $this->reflectionClass->getMethod($name);
+        $method = $this->reflectionClass->getMethod($name);
     }
 
     /**
@@ -146,7 +159,12 @@ class ReflectionClass
 
     public function getReflectionConstant(string $name): \ReflectionClassConstant
     {
-        return $this->reflectionClass->getReflectionConstant($name);
+        $result = $this->reflectionClass->getReflectionConstant($name);
+        if (false === $result) {
+            throw new \RuntimeException('Failed getting constant ' . $name);
+        }
+
+        return $result;
     }
 
     /**
@@ -227,19 +245,6 @@ class ReflectionClass
     }
 
     /**
-     * @return \ReflectionClass
-     * @throws \ReflectionException
-     */
-    private function getSelfReflection(): \ReflectionClass
-    {
-        if (null === self::$selfReflection) {
-            self::$selfReflection = new \ReflectionClass(self::class);
-        }
-
-        return self::$selfReflection;
-    }
-
-    /**
      * @return array|string[]
      */
     public function getInterfaceNames(): array
@@ -314,7 +319,7 @@ class ReflectionClass
      *
      * @return object
      */
-    public function newInstance(...$args)
+    public function newInstance(...$args): object
     {
         return $this->reflectionClass->newInstance(...$args);
     }
