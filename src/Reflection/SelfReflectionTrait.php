@@ -10,25 +10,6 @@ trait SelfReflectionTrait
     private static $selfReflection;
 
     /**
-     * For when we need to return instances of self from an existing instance of \ReflectionClass
-     *
-     * @param \ReflectionClass $reflectionClass
-     *
-     * @return self
-     * @throws \ReflectionException
-     */
-    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
-    {
-        /**
-         * @var self $instance
-         */
-        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
-        $instance->reflectionClass = $reflectionClass;
-
-        return $instance;
-    }
-
-    /**
      * @return \ReflectionClass
      * @throws \ReflectionException
      */

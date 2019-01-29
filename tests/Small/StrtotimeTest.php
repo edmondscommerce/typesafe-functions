@@ -21,7 +21,7 @@ class StrtotimeTest extends TestCase
     {
         $input = 'January 1st 1970 00:00';
 
-        $this->assertEquals(0, \ts\strtotime($input));
+        self::assertEquals(0, \ts\strtotime($input));
     }
 
     /**

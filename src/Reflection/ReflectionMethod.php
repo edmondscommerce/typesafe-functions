@@ -4,6 +4,8 @@ namespace ts\Reflection;
 
 class ReflectionMethod
 {
+    use SelfReflectionTrait;
+
     /**
      * @var \ReflectionMethod
      */
@@ -55,7 +57,7 @@ class ReflectionMethod
         return $this->reflectionMethod->isConstructor();
     }
 
-    public function getClosure($object): \Closure
+    public function getClosure(object $object = null): \Closure
     {
         $result = $this->reflectionMethod->getClosure($object);
         if (null === $result) {
@@ -77,8 +79,8 @@ class ReflectionMethod
     }
 
     /**
-     * @param       $object
-     * @param array $args
+     * @param object $object
+     * @param array  $args
      *
      * @return mixed
      */
@@ -87,14 +89,35 @@ class ReflectionMethod
         return $this->reflectionMethod->invokeArgs($object, $args);
     }
 
-    public function getPrototype()
+    public function getPrototype(): self
     {
-        return $this->reflectionMethod->getPrototype();
+        $reflectionMethod = $this->reflectionMethod->getPrototype();
+
+        return $this->constructFromReflectionMethod($reflectionMethod);
     }
 
-    public function setAccessible($accessible)
+    /**
+     * For when we need to return instances of self from an existing instance of \ReflectionClass
+     *
+     * @param \ReflectionMethod $reflectionMethod
+     *
+     * @return self
+     * @throws \ReflectionException
+     */
+    public function constructFromReflectionMethod(\ReflectionMethod $reflectionMethod): self
     {
-        return $this->reflectionMethod->setAccessible($accessible);
+        /**
+         * @var self $instance
+         */
+        $instance                   = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance->reflectionMethod = $reflectionMethod;
+
+        return $instance;
+    }
+
+    public function setAccessible(bool $accessible): void
+    {
+        $this->reflectionMethod->setAccessible($accessible);
     }
 
 }

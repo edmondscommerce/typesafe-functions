@@ -13,7 +13,7 @@ class PrintRTest extends TestCase
      * @test
      * @small
      */
-    public function itReturnsAStringWhenPassedAnArray()
+    public function itReturnsAStringWhenPassedAnArray(): void
     {
         $mixed  = [
             0 => '123',
@@ -27,7 +27,7 @@ class PrintRTest extends TestCase
      * @test
      * @small
      */
-    public function itReturnsAStringWhenPassedAFloat()
+    public function itReturnsAStringWhenPassedAFloat(): void
     {
         $mixed  = 1.234;
         $actual = \ts\print_r($mixed, true);

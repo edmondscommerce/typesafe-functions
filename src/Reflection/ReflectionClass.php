@@ -12,10 +12,6 @@ class ReflectionClass
     /**
      * @var \ReflectionClass
      */
-    private static $selfReflection;
-    /**
-     * @var \ReflectionClass
-     */
     private $reflectionClass;
 
     /**
@@ -82,12 +78,22 @@ class ReflectionClass
 
     public function getStartLine(): int
     {
-        return $this->reflectionClass->getStartLine();
+        $result = $this->reflectionClass->getStartLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getEndLine(): int
     {
-        return $this->reflectionClass->getEndLine();
+        $result = $this->reflectionClass->getEndLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getDocComment(): string
@@ -153,7 +159,12 @@ class ReflectionClass
 
     public function getReflectionConstant(string $name): \ReflectionClassConstant
     {
-        return $this->reflectionClass->getReflectionConstant($name);
+        $result = $this->reflectionClass->getReflectionConstant($name);
+        if (false === $result) {
+            throw new \RuntimeException('Failed getting constant ' . $name);
+        }
+
+        return $result;
     }
 
     /**
@@ -214,6 +225,24 @@ class ReflectionClass
         return $return;
     }
 
+    /**
+     * For when we need to return instances of self from an existing instance of \ReflectionClass
+     *
+     * @param \ReflectionClass $reflectionClass
+     *
+     * @return self
+     * @throws \ReflectionException
+     */
+    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
+    {
+        /**
+         * @var self $instance
+         */
+        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance->reflectionClass = $reflectionClass;
+
+        return $instance;
+    }
 
     /**
      * @return array|string[]
@@ -290,7 +319,7 @@ class ReflectionClass
      *
      * @return object
      */
-    public function newInstance(...$args)
+    public function newInstance(...$args): object
     {
         return $this->reflectionClass->newInstance(...$args);
     }

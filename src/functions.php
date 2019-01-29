@@ -26,16 +26,19 @@ function file_get_contents(string $path): string
  *
  * Throws a \RuntimeException on error
  *
- * @param string $filename
- * @param string $data
- * @param int    $flags
- * @param null   $context
+ * @param string        $filename
+ * @param string        $data
+ * @param int           $flags
+ * @param null|resource $context
  *
  * @return bool
  */
 function file_put_contents(string $filename, string $data, int $flags = 0, $context = null): bool
 {
-    $result = \file_put_contents($filename, $data, $flags, $context);
+    $result = is_resource($context)
+        ? \file_put_contents($filename, $data, $flags, $context)
+        : \file_put_contents($filename, $data, $flags);
+
     if (false !== $result) {
         return true;
     }
@@ -114,7 +117,7 @@ function stringStartsWith(string $haystack, string $needle): bool
  */
 function varToString($var): string
 {
-    return (string)\print_r($var, true);
+    return \print_r($var, true);
 }
 
 /**
@@ -133,14 +136,16 @@ function arrayContains($needle, array $haystack): bool
 /**
  * Replaces \print_r
  *
- * @param $mixed
+ * @param mixed $mixed
  *
- * @return string
+ * @param bool  $return
+ *
+ * @return string|null
  */
 function print_r($mixed, bool $return): ?string
 {
     if (true === $return) {
-        return (string)\print_r($mixed, true);
+        return \print_r($mixed, true);
     }
     \print_r($mixed);
 }
@@ -149,11 +154,13 @@ function print_r($mixed, bool $return): ?string
  * @param string   $time
  * @param int|null $now
  *
- * @return false|int
+ * @return int
  */
 function strtotime(string $time, int $now = null): int
 {
-    $result = \is_int($now) ? \strtotime($time, $now) : \strtotime($time);
+    $result = \is_int($now)
+        ? \strtotime($time, $now)
+        : \strtotime($time);
 
     if ($result === false) {
         throw new \RuntimeException('Failed to get time from string: ' . $time);
@@ -163,11 +170,11 @@ function strtotime(string $time, int $now = null): int
 }
 
 /**
- * @param string   $pattern
- * @param string   $replacement
- * @param string   $subject
- * @param int|null $limit
- * @param int|null $count
+ * @param string $pattern
+ * @param string $replacement
+ * @param string $subject
+ * @param int    $limit
+ * @param int    $count
  *
  * @return string
  */
@@ -176,7 +183,7 @@ function preg_replace(
     string $replacement,
     string $subject,
     int $limit = -1,
-    ?int &$count = 0
+    int &$count = 0
 ): string {
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
     if (null === $result) {
@@ -186,7 +193,7 @@ function preg_replace(
     return $result;
 }
 
-function realpath(string $path)
+function realpath(string $path): string
 {
     $result = \realpath($path);
     if (false === $result) {
