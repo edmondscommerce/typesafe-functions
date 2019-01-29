@@ -52,7 +52,7 @@ class ReflectionMethodTest extends TestCase
 
     public function testConstructFromReflectionMethod(): void
     {
-        $actual = self::$instance->constructFromReflectionMethod(self::$raw);
+        $actual = self::$instance::constructFromReflectionMethod(self::$raw);
         self::assertInstanceOf(ReflectionMethod::class, $actual);
     }
 
@@ -71,22 +71,22 @@ class ReflectionMethodTest extends TestCase
 
     public function testIsPublic(): void
     {
-        $actual   = self::$instance->isPublic($this);
-        $expected = self::$raw->isPublic($this);
+        $actual   = self::$instance->isPublic();
+        $expected = self::$raw->isPublic();
         self::assertSame($expected, $actual);
     }
 
     public function testIsConstructor(): void
     {
-        $actual   = self::$instance->isConstructor($this);
-        $expected = self::$raw->isConstructor($this);
+        $actual   = self::$instance->isConstructor();
+        $expected = self::$raw->isConstructor();
         self::assertSame($expected, $actual);
     }
 
     public function testIsProtected(): void
     {
-        $actual   = self::$instance->isProtected($this);
-        $expected = self::$raw->isProtected($this);
+        $actual   = self::$instance->isProtected();
+        $expected = self::$raw->isProtected();
         self::assertSame($expected, $actual);
     }
 
@@ -99,8 +99,8 @@ class ReflectionMethodTest extends TestCase
 
     public function testIsPrivate(): void
     {
-        $actual   = self::$instance->isPrivate($this);
-        $expected = self::$raw->isPrivate($this);
+        $actual   = self::$instance->isPrivate();
+        $expected = self::$raw->isPrivate();
         self::assertSame($expected, $actual);
     }
 

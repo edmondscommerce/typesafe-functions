@@ -93,7 +93,7 @@ class ReflectionMethod
     {
         $reflectionMethod = $this->reflectionMethod->getPrototype();
 
-        return $this->constructFromReflectionMethod($reflectionMethod);
+        return self::constructFromReflectionMethod($reflectionMethod);
     }
 
     /**
@@ -104,12 +104,12 @@ class ReflectionMethod
      * @return self
      * @throws \ReflectionException
      */
-    public function constructFromReflectionMethod(\ReflectionMethod $reflectionMethod): self
+    public static function constructFromReflectionMethod(\ReflectionMethod $reflectionMethod): self
     {
         /**
          * @var self $instance
          */
-        $instance                   = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance                   = self::getSelfReflection()->newInstanceWithoutConstructor();
         $instance->reflectionMethod = $reflectionMethod;
 
         return $instance;

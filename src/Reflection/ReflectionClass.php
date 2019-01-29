@@ -101,14 +101,14 @@ class ReflectionClass
         return (string)$this->reflectionClass->getDocComment();
     }
 
-    public function getConstructor(): \ReflectionMethod
+    public function getConstructor(): ReflectionMethod
     {
-        $result = $this->reflectionClass->getConstructor();
-        if (null === $result) {
+        $constructor = $this->reflectionClass->getConstructor();
+        if (null === $constructor) {
             throw new \RuntimeException('Failed getting constructor in ' . __METHOD__);
         }
 
-        return $result;
+        return ReflectionMethod::constructFromReflectionMethod($constructor);
     }
 
     public function hasMethod(string $name): bool
@@ -119,20 +119,27 @@ class ReflectionClass
     public function getMethod(string $name): ReflectionMethod
     {
         $method = $this->reflectionClass->getMethod($name);
+
+        return ReflectionMethod::constructFromReflectionMethod($method);
     }
 
     /**
      * @param int|null $filter
      *
-     * @return array|\ReflectionMethod[]
+     * @return array|ReflectionMethod[]
+     * @throws \ReflectionException
      */
     public function getMethods(?int $filter = null): array
     {
-        if (null === $filter) {
-            return $this->reflectionClass->getMethods();
+        $methods = (null === $filter)
+            ? $this->reflectionClass->getMethods()
+            : $this->reflectionClass->getMethods($filter);
+        $return  = [];
+        foreach ($methods as $key => $method) {
+            $return[$key] = ReflectionMethod::constructFromReflectionMethod($method);
         }
 
-        return $this->reflectionClass->getMethods($filter);
+        return $return;
     }
 
     public function hasProperty(string $name): bool
@@ -238,7 +245,7 @@ class ReflectionClass
         /**
          * @var self $instance
          */
-        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance                  = self::getSelfReflection()->newInstanceWithoutConstructor();
         $instance->reflectionClass = $reflectionClass;
 
         return $instance;
