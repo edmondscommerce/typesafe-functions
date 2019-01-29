@@ -8,7 +8,7 @@ use ts\Reflection\ReflectionMethod;
 class ReflectionMethodTest extends TestCase
 {
 
-    private const TEST_METHOD_NAME = 'getName';
+    private const TEST_METHOD_NAME = 'setUpBeforeClass';
 
     /**
      * @var ReflectionMethod
@@ -37,17 +37,23 @@ class ReflectionMethodTest extends TestCase
 
     public function testIsStatic(): void
     {
-        self::assertFalse(self::$instance->isStatic());
+        $actual   = self::$instance->isStatic();
+        $expected = self::$raw->isStatic();
+        self::assertSame($expected, $actual);
     }
 
     public function testIsFinal(): void
     {
-        self::assertFalse(self::$instance->isFinal());
+        $actual   = self::$instance->isFinal();
+        $expected = self::$raw->isFinal();
+        self::assertSame($expected, $actual);
     }
 
     public function testIsAbstract(): void
     {
-        self::assertFalse(self::$instance->isAbstract());
+        $actual   = self::$instance->isAbstract();
+        $expected = self::$raw->isAbstract();
+        self::assertSame($expected, $actual);
     }
 
     public function testConstructFromReflectionMethod(): void

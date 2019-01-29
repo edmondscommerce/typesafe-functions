@@ -226,7 +226,7 @@ class ReflectionClass
     {
         $return = [];
         foreach ($reflectionClasses as $key => $reflectionClass) {
-            $return[$key] = $this->constructFromReflectionClass($reflectionClass);
+            $return[$key] = ReflectionClass::constructFromReflectionClass($reflectionClass);
         }
 
         return $return;
@@ -240,7 +240,7 @@ class ReflectionClass
      * @return self
      * @throws \ReflectionException
      */
-    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
+    public static function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
     {
         /**
          * @var self $instance
@@ -360,7 +360,7 @@ class ReflectionClass
             throw new \RuntimeException('reflection class does not have a parent');
         }
 
-        return $this->constructFromReflectionClass($parent);
+        return ReflectionClass::constructFromReflectionClass($parent);
     }
 
     public function isSubclassOf(string $class): bool

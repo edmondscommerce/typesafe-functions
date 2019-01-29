@@ -1,0 +1,6 @@
+includes:
+	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Strict comparison using === between null and ReflectionClass will always evaluate to false#'
