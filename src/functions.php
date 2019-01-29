@@ -46,6 +46,29 @@ function file_put_contents(string $filename, string $data, int $flags = 0, $cont
 }
 
 /**
+ * Replaces \stripos
+ *
+ * To be used when actually looking for the string position
+ *
+ * If you are checking for the existence of the string, then you should replace with \ts\stringContains
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return int
+ *
+ */
+function stripos(string $haystack, string $needle): int
+{
+    $pos = \stripos($haystack, $needle);
+    if (false === $pos) {
+        throw new \RuntimeException('Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"');
+    }
+
+    return $pos;
+}
+
+/**
  * Replaces \strpos (1 of 3)
  *
  * To be used when actually looking for the string position
@@ -75,12 +98,16 @@ function strpos(string $haystack, string $needle): int
  *
  * @param string $haystack
  * @param string $needle
+ * @param bool $caseSensitive
  *
  * @return bool
  */
-function stringContains(string $haystack, string $needle): bool
+function stringContains(string $haystack, string $needle, bool $caseSensitive = false): bool
 {
-    $pos = \strpos($haystack, $needle);
+    $pos = ($caseSensitive === true)
+        ? \strpos($haystack, $needle)
+        : \stripos($haystack, $needle);
+
     if (false === $pos) {
         return false;
     }
@@ -95,12 +122,15 @@ function stringContains(string $haystack, string $needle): bool
  *
  * @param string $haystack
  * @param string $needle
+ * @param bool $caseSensitive
  *
  * @return bool
  */
-function stringStartsWith(string $haystack, string $needle): bool
+function stringStartsWith(string $haystack, string $needle, bool $caseSensitive = false): bool
 {
-    $pos = \strpos($haystack, $needle);
+    $pos = ($caseSensitive === true)
+        ? \strpos($haystack, $needle)
+        : \stripos($haystack, $needle);
     if (0 === $pos) {
         return true;
     }

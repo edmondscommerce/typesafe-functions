@@ -29,9 +29,9 @@ class ReflectionMethod
      * @return string
      * @since 5.0
      */
-    static function export()
+    public static function export()
     {
-
+        throw new \RuntimeException('Unsupported method ' . __METHOD__);
     }
 
     public function isPublic(): bool

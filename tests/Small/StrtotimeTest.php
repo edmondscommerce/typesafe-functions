@@ -35,5 +35,4 @@ class StrtotimeTest extends TestCase
 
         \ts\strtotime($input);
     }
-
 }
