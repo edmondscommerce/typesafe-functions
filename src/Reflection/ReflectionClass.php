@@ -7,6 +7,8 @@ namespace ts\Reflection;
  */
 class ReflectionClass
 {
+    use SelfReflectionTrait;
+
     /**
      * @var \ReflectionClass
      */
@@ -93,9 +95,14 @@ class ReflectionClass
         return (string)$this->reflectionClass->getDocComment();
     }
 
-    public function getConstructor(): ?\ReflectionMethod
+    public function getConstructor(): \ReflectionMethod
     {
-        return $this->reflectionClass->getConstructor();
+        $result = $this->reflectionClass->getConstructor();
+        if (null === $result) {
+            throw new \RuntimeException('Failed getting constructor in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function hasMethod(string $name): bool
@@ -103,9 +110,9 @@ class ReflectionClass
         return $this->reflectionClass->hasMethod($name);
     }
 
-    public function getMethod(string $name): \ReflectionMethod
+    public function getMethod(string $name): ReflectionMethod
     {
-        return $this->reflectionClass->getMethod($name);
+        $method = $this->reflectionClass->getMethod($name);
     }
 
     /**
@@ -207,37 +214,6 @@ class ReflectionClass
         return $return;
     }
 
-    /**
-     * For when we need to return instances of self from an existing instance of \ReflectionClass
-     *
-     * @param \ReflectionClass $reflectionClass
-     *
-     * @return self
-     * @throws \ReflectionException
-     */
-    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
-    {
-        /**
-         * @var self $instance
-         */
-        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
-        $instance->reflectionClass = $reflectionClass;
-
-        return $instance;
-    }
-
-    /**
-     * @return \ReflectionClass
-     * @throws \ReflectionException
-     */
-    private function getSelfReflection(): \ReflectionClass
-    {
-        if (null === self::$selfReflection) {
-            self::$selfReflection = new \ReflectionClass(self::class);
-        }
-
-        return self::$selfReflection;
-    }
 
     /**
      * @return array|string[]
