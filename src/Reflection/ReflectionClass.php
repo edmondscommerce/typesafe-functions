@@ -118,7 +118,7 @@ class ReflectionClass
 
     public function getMethod(string $name): ReflectionMethod
     {
-        $method = $this->reflectionClass->getMethod($name);
+        return new ReflectionMethod($this->getName(), $name);
     }
 
     /**
