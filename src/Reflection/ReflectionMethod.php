@@ -85,18 +85,18 @@ class ReflectionMethod
      *
      * @return mixed
      */
-    public function invoke(object $object, ...$parameters)
+    public function invoke(object $object = null, ...$parameters)
     {
         return $this->reflectionMethod->invoke($object, ...$parameters);
     }
 
     /**
-     * @param object $object
-     * @param array  $args
+     * @param object|null $object
+     * @param array       $args
      *
      * @return mixed
      */
-    public function invokeArgs(object $object, array $args)
+    public function invokeArgs(?object $object, array $args)
     {
         return $this->reflectionMethod->invokeArgs($object, $args);
     }
