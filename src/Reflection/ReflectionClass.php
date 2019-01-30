@@ -226,7 +226,7 @@ class ReflectionClass
     {
         $return = [];
         foreach ($reflectionClasses as $key => $reflectionClass) {
-            $return[$key] = ReflectionClass::constructFromReflectionClass($reflectionClass);
+            $return[$key] = self::constructFromReflectionClass($reflectionClass);
         }
 
         return $return;
@@ -360,7 +360,7 @@ class ReflectionClass
             throw new \RuntimeException('reflection class does not have a parent');
         }
 
-        return ReflectionClass::constructFromReflectionClass($parent);
+        return self::constructFromReflectionClass($parent);
     }
 
     public function isSubclassOf(string $class): bool

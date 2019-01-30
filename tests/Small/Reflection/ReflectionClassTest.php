@@ -10,6 +10,7 @@ use ts\Reflection\ReflectionClass;
  *
  * @package ts\Tests\Small\Reflection
  * @SuppressWarnings(PHPMD)
+ * @small
  */
 class ReflectionClassTest extends TestCase
 {

@@ -5,6 +5,9 @@ namespace ts\Tests\Small\Reflection;
 use PHPUnit\Framework\TestCase;
 use ts\Reflection\ReflectionMethod;
 
+/**
+ * @small
+ */
 class ReflectionMethodTest extends TestCase
 {
 
