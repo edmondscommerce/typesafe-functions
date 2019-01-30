@@ -100,7 +100,6 @@ class ReflectionMethodTest extends TestCase
     {
         self::$instance->setAccessible(true);
         self::assertTrue(true);
-
     }
 
     public function testIsPrivate(): void
@@ -116,6 +115,4 @@ class ReflectionMethodTest extends TestCase
         $expected = self::$raw->invoke($this);
         self::assertSame($expected, $actual);
     }
-
-
 }

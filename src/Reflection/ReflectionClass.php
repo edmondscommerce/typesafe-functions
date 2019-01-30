@@ -7,10 +7,8 @@ namespace ts\Reflection;
  */
 class ReflectionClass
 {
-    /**
-     * @var \ReflectionClass
-     */
-    private static $selfReflection;
+    use SelfReflectionTrait;
+
     /**
      * @var \ReflectionClass
      */
@@ -80,12 +78,22 @@ class ReflectionClass
 
     public function getStartLine(): int
     {
-        return $this->reflectionClass->getStartLine();
+        $result = $this->reflectionClass->getStartLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getEndLine(): int
     {
-        return $this->reflectionClass->getEndLine();
+        $result = $this->reflectionClass->getEndLine();
+        if (false === $result) {
+            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+        }
+
+        return $result;
     }
 
     public function getDocComment(): string
@@ -93,9 +101,14 @@ class ReflectionClass
         return (string)$this->reflectionClass->getDocComment();
     }
 
-    public function getConstructor(): ?\ReflectionMethod
+    public function getConstructor(): ReflectionMethod
     {
-        return $this->reflectionClass->getConstructor();
+        $constructor = $this->reflectionClass->getConstructor();
+        if (null === $constructor) {
+            throw new \RuntimeException('Failed getting constructor in ' . __METHOD__);
+        }
+
+        return ReflectionMethod::constructFromReflectionMethod($constructor);
     }
 
     public function hasMethod(string $name): bool
@@ -103,23 +116,30 @@ class ReflectionClass
         return $this->reflectionClass->hasMethod($name);
     }
 
-    public function getMethod(string $name): \ReflectionMethod
+    public function getMethod(string $name): ReflectionMethod
     {
-        return $this->reflectionClass->getMethod($name);
+        $method = $this->reflectionClass->getMethod($name);
+
+        return ReflectionMethod::constructFromReflectionMethod($method);
     }
 
     /**
      * @param int|null $filter
      *
-     * @return array|\ReflectionMethod[]
+     * @return array|ReflectionMethod[]
+     * @throws \ReflectionException
      */
     public function getMethods(?int $filter = null): array
     {
-        if (null === $filter) {
-            return $this->reflectionClass->getMethods();
+        $methods = (null === $filter)
+            ? $this->reflectionClass->getMethods()
+            : $this->reflectionClass->getMethods($filter);
+        $return  = [];
+        foreach ($methods as $key => $method) {
+            $return[$key] = ReflectionMethod::constructFromReflectionMethod($method);
         }
 
-        return $this->reflectionClass->getMethods($filter);
+        return $return;
     }
 
     public function hasProperty(string $name): bool
@@ -146,7 +166,12 @@ class ReflectionClass
 
     public function getReflectionConstant(string $name): \ReflectionClassConstant
     {
-        return $this->reflectionClass->getReflectionConstant($name);
+        $result = $this->reflectionClass->getReflectionConstant($name);
+        if (false === $result) {
+            throw new \RuntimeException('Failed getting constant ' . $name);
+        }
+
+        return $result;
     }
 
     /**
@@ -201,7 +226,7 @@ class ReflectionClass
     {
         $return = [];
         foreach ($reflectionClasses as $key => $reflectionClass) {
-            $return[$key] = $this->constructFromReflectionClass($reflectionClass);
+            $return[$key] = ReflectionClass::constructFromReflectionClass($reflectionClass);
         }
 
         return $return;
@@ -215,28 +240,15 @@ class ReflectionClass
      * @return self
      * @throws \ReflectionException
      */
-    private function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
+    public static function constructFromReflectionClass(\ReflectionClass $reflectionClass): self
     {
         /**
          * @var self $instance
          */
-        $instance                  = $this->getSelfReflection()->newInstanceWithoutConstructor();
+        $instance                  = self::getSelfReflection()->newInstanceWithoutConstructor();
         $instance->reflectionClass = $reflectionClass;
 
         return $instance;
-    }
-
-    /**
-     * @return \ReflectionClass
-     * @throws \ReflectionException
-     */
-    private function getSelfReflection(): \ReflectionClass
-    {
-        if (null === self::$selfReflection) {
-            self::$selfReflection = new \ReflectionClass(self::class);
-        }
-
-        return self::$selfReflection;
     }
 
     /**
@@ -314,7 +326,7 @@ class ReflectionClass
      *
      * @return object
      */
-    public function newInstance(...$args)
+    public function newInstance(...$args): object
     {
         return $this->reflectionClass->newInstance(...$args);
     }
@@ -348,7 +360,7 @@ class ReflectionClass
             throw new \RuntimeException('reflection class does not have a parent');
         }
 
-        return $this->constructFromReflectionClass($parent);
+        return ReflectionClass::constructFromReflectionClass($parent);
     }
 
     public function isSubclassOf(string $class): bool

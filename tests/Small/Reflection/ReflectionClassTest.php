@@ -146,12 +146,12 @@ class ReflectionClassTest extends TestCase
     {
         $expected = self::$raw->getMethods();
         $actual   = self::$instance->getMethods();
-        self::assertEquals($expected, $actual);
+        self::assertCount(count($expected), $actual);
 
         $filter   = \ReflectionMethod::IS_PUBLIC;
         $expected = self::$raw->getMethods($filter);
         $actual   = self::$instance->getMethods($filter);
-        self::assertEquals($expected, $actual);
+        self::assertCount(count($expected), $actual);
     }
 
     public function testGetReflectionConstants(): void
@@ -242,9 +242,10 @@ class ReflectionClassTest extends TestCase
 
     public function testGetConstructor(): void
     {
-        $expected = self::$raw->getConstructor();
-        $actual   = self::$instance->getConstructor();
-        self::assertEquals($expected, $actual);
+        $constructor = self::$raw->getConstructor();
+        $expected    = null !== $constructor ? $constructor->getName() : 'fail';
+        $actual      = self::$instance->getConstructor()->getName();
+        self::assertSame($expected, $actual);
     }
 
     public function testHasProperty(): void
@@ -373,8 +374,8 @@ class ReflectionClassTest extends TestCase
 
     public function testGetMethod(): void
     {
-        $expected = self::$raw->getMethod(__FUNCTION__);
-        $actual   = self::$instance->getMethod(__FUNCTION__);
+        $expected = self::$raw->getMethod(__FUNCTION__)->getName();
+        $actual   = self::$instance->getMethod(__FUNCTION__)->getName();
         self::assertEquals($expected, $actual);
     }
 

@@ -4,11 +4,11 @@
   "type": "project",
   "description": "Type safe wrappers around internal functions that return mixed types",
   "require": {
-    "php": "^7.1"
+    "php": "^7.2"
   },
   "require-dev": {
     "phpstan/phpstan-shim": "dev-master@dev",
-    "edmondscommerce/phpqa": "dev-master@dev"
+    "edmondscommerce/phpqa": "^1.0|^2.0"
   },
   "autoload": {
     "psr-4": {
