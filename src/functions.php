@@ -103,6 +103,16 @@ function strpos(string $haystack, string $needle): int
     return $pos;
 }
 
+function strrpos(string $haystack, string $needle, int $offset = 0): int
+{
+    $pos = \strrpos($haystack, $needle, $offset);
+    if (false === $pos) {
+        throw new \RuntimeException('Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"');
+    }
+
+    return $pos;
+}
+
 /**
  * Replaces \strpos (2 of 3)
  *
