@@ -7,13 +7,25 @@ namespace ts;
  *
  * Throws a \RuntimeException on error
  *
- * @param string $path
+ * @param string        $path
+ * @param bool          $use_include_path
+ * @param resource|null $context
+ * @param int|null      $offset
+ * @param int|null      $maxlen
  *
  * @return string
  */
-function file_get_contents(string $path): string
-{
-    $contents = \file_get_contents($path);
+function file_get_contents(
+    string $path,
+    bool $use_include_path = false,
+    $context = null,
+    int $offset = 0,
+    int $maxlen = null
+): string {
+    $contents = (null !== $maxlen)
+        ? \file_get_contents($path, $use_include_path, $context, $offset, $maxlen)
+        : \file_get_contents($path, $use_include_path, $context, $offset);
+
     if (false === $contents) {
         throw new \RuntimeException('Failed getting contents of file: ' . $path);
     }
@@ -98,7 +110,7 @@ function strpos(string $haystack, string $needle): int
  *
  * @param string $haystack
  * @param string $needle
- * @param bool $caseSensitive
+ * @param bool   $caseSensitive
  *
  * @return bool
  */
@@ -122,7 +134,7 @@ function stringContains(string $haystack, string $needle, bool $caseSensitive = 
  *
  * @param string $haystack
  * @param string $needle
- * @param bool $caseSensitive
+ * @param bool   $caseSensitive
  *
  * @return bool
  */
