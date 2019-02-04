@@ -321,3 +321,13 @@ function file(string $filePath): array
 
     return $result;
 }
+
+function array_slice(array $array, int $offset, int $length = null, bool $preserve_keys = false): array
+{
+    $result = \array_slice($array, $offset, $length, $preserve_keys);
+    if (false === $result) {
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
