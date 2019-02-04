@@ -290,7 +290,7 @@ function curl_multi_getcontent($ch): string
 function array_combine(array $keys, array $values): array
 {
     $result = \array_combine($keys, $values);
-    if (false === \is_resource($result)) {
+    if (false === $result) {
         throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
     }
 
