@@ -331,3 +331,17 @@ function array_slice(array $array, int $offset, int $length = null, bool $preser
 
     return $result;
 }
+
+function json_encode($value, int $options = 0, int $depth = 512): string
+{
+    $result = \json_encode($value, $options, $depth);
+    if (false === $result) {
+        $err = json_last_error();
+        if ($err !== JSON_ERROR_NONE) {
+            throw new \RuntimeException('An error occurred in ' . __METHOD__ . ' ' . json_last_error_msg());
+        }
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
