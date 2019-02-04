@@ -296,3 +296,18 @@ function array_combine(array $keys, array $values): array
 
     return $result;
 }
+
+/**
+ * @param string $filePath
+ *
+ * @return array
+ */
+function file(string $filePath): array
+{
+    $result = \file($filePath);
+    if (false === $result) {
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
