@@ -280,3 +280,19 @@ function curl_multi_getcontent($ch): string
 {
     return \curl_multi_getcontent($ch);
 }
+
+/**
+ * @param array $keys
+ * @param array $values
+ *
+ * @return array
+ */
+function array_combine(array $keys, array $values): array
+{
+    $result = \array_combine($keys, $values);
+    if (false === \is_resource($result)) {
+        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    }
+
+    return $result;
+}
