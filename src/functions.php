@@ -345,3 +345,13 @@ function json_encode($value, int $options = 0, int $depth = 512): string
 
     return $result;
 }
+
+function ini_get(string $varname): string
+{
+    $result = \ini_get($varname);
+    if (false === $result) {
+        throw new \RuntimeException('Failed getting ' . $varname . ' in ' . __METHOD__);
+    }
+
+    return $result;
+}
