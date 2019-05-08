@@ -1,14 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ts\Tests\Small;
+namespace ts\Tests\Small\Functions\ArrayFunctions;
 
 use PHPUnit\Framework\TestCase;
 
-class ArrayContainsTest extends TestCase
+/**
+ * @small
+ */
+class ArrayContainsAndInArrayTest extends TestCase
 {
     /**
      * @test
-     * @small
      */
     public function itFindsElementsThatAreStrictlyEqual(): void
     {
@@ -23,7 +25,6 @@ class ArrayContainsTest extends TestCase
 
     /**
      * @test
-     * @small
      */
     public function itDoesNotFindElementsThatAreNotStrictlyEqual(): void
     {
