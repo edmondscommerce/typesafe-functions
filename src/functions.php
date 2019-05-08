@@ -10,8 +10,8 @@ namespace ts;
  * @param string        $path
  * @param bool          $use_include_path
  * @param resource|null $context
- * @param int|null      $offset
- * @param int|null      $maxlen
+ * @param int           $offset
+ * @param int           $maxlen
  *
  * @return string
  */
@@ -301,6 +301,13 @@ function array_combine(array $keys, array $values): array
 {
     $result = \array_combine($keys, $values);
     if (false === $result) {
+        $keysCount   = count($keys);
+        $valuesCount = count($values);
+        if ($keysCount !== $valuesCount) {
+            throw new \InvalidArgumentException(
+                "The number of keys ($keysCount) and values ($valuesCount) are not the same in " . __METHOD__
+            );
+        }
         throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
     }
 
@@ -325,13 +332,20 @@ function file(string $filePath): array
 function array_slice(array $array, int $offset, int $length = null, bool $preserve_keys = false): array
 {
     $result = \array_slice($array, $offset, $length, $preserve_keys);
-    if (false === $result) {
-        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
+    if ([] === $result) {
+        throw new \RuntimeException('Slice is empty in ' . __METHOD__);
     }
 
     return $result;
 }
 
+/**
+ * @param mixed $value
+ * @param int   $options
+ * @param int   $depth
+ *
+ * @return string
+ */
 function json_encode($value, int $options = 0, int $depth = 512): string
 {
     $result = \json_encode($value, $options, $depth);
