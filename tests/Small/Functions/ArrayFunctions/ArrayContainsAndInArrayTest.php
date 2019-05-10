@@ -65,40 +65,38 @@ class ArrayContainsAndInArrayTest extends TestCase
         self::assertFalse(\ts\in_array($needle, $haystack));
     }
 
-
     /**
      * @test
      */
-    public function inArrayDoesNotFindsNestedElementsThatAreStrictlyEqual(): void
+    public function arrayContainsDoesNotFindNestedElementsThatAreStrictlyEqual(): void
     {
         $haystack = [
             1,
+            2.0,
             [
-                2.0,
+                2,
             ],
             3,
         ];
-        $needle   = 2.0;
-        self::assertFalse(\ts\in_array($needle, $haystack));
+        $needle   = 2;
+        self::assertFalse(\ts\arrayContains($needle, $haystack));
     }
-
 
     /**
      * @test
      */
-    public function inArrayDoesNotFindNestedElementsThatAreNotStrictlyEqual(): void
+    public function inArrayDoesNotFindNestedElementsThatAreStrictlyEqual(): void
     {
         $haystack = [
             1,
+            2.0,
             [
-                1,
-                2.0,
+                2,
             ],
             3,
         ];
         $needle   = 2;
         self::assertFalse(\ts\in_array($needle, $haystack));
     }
-
 
 }
