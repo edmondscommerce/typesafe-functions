@@ -12,7 +12,7 @@ class ArrayContainsAndInArrayTest extends TestCase
     /**
      * @test
      */
-    public function itFindsElementsThatAreStrictlyEqual(): void
+    public function arrayContainsFindsElementsThatAreStrictlyEqual(): void
     {
         $haystack = [
             1,
@@ -26,7 +26,7 @@ class ArrayContainsAndInArrayTest extends TestCase
     /**
      * @test
      */
-    public function itDoesNotFindElementsThatAreNotStrictlyEqual(): void
+    public function arrayContainsDoesNotFindElementsThatAreNotStrictlyEqual(): void
     {
         $haystack = [
             1,
@@ -36,4 +36,33 @@ class ArrayContainsAndInArrayTest extends TestCase
         $needle   = 2;
         self::assertFalse(\ts\arrayContains($needle, $haystack));
     }
+
+    /**
+     * @test
+     */
+    public function inArrayFindsElementsThatAreStrictlyEqual(): void
+    {
+        $haystack = [
+            1,
+            2.0,
+            3,
+        ];
+        $needle   = 2.0;
+        self::assertTrue(\ts\in_array($needle, $haystack));
+    }
+
+    /**
+     * @test
+     */
+    public function inArrayDoesNotFindElementsThatAreNotStrictlyEqual(): void
+    {
+        $haystack = [
+            1,
+            2.0,
+            3,
+        ];
+        $needle   = 2;
+        self::assertFalse(\ts\in_array($needle, $haystack));
+    }
+
 }
