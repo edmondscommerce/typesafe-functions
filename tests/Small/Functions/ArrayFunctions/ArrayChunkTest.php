@@ -48,4 +48,17 @@ class ArrayChunkTest extends TestCase
             self::assertCount(2, $item);
         }
     }
+    
+    /**
+     * @test
+     */
+    public function itWillThrowAnExceptionWhenANullArrayIsReturned(): void
+    {
+		$this->expectException(\RuntimeException::class);
+		$this->expectExceptionMessage('Array is empty in ts\array_chunk');
+		
+        $input = range(1, 9);
+
+        @$actual = \ts\array_chunk($input, 0);
+    }
 }
