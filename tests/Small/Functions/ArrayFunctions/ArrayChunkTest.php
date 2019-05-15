@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @small
+ * @covers \ts\array_chunk
  */
 class ArrayChunkTest extends TestCase
 {
