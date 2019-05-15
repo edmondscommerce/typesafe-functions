@@ -14,6 +14,6 @@ class ArraySliceTest extends TestCase
      */
     public function placeholder(): void
     {
-        $this->markTestSkipped('this is a placeholder');
+        self::markTestSkipped('this is a placeholder');
     }
 }
