@@ -9,5 +9,11 @@ use PHPUnit\Framework\TestCase;
  */
 class ArraySliceTest extends TestCase
 {
-
+    /**
+     * @test
+     */
+    public function placeholder(): void
+    {
+        self::markTestSkipped('this is a placeholder');
+    }
 }

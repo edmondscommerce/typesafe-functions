@@ -2,6 +2,8 @@
 
 namespace ts\Tests\Small\Reflection;
 
+use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use ts\Reflection\ReflectionClass;
 
@@ -420,5 +422,58 @@ class ReflectionClassTest extends TestCase
         $expected = self::$raw->isAnonymous();
         $actual   = self::$instance->isAnonymous();
         self::assertSame($expected, $actual);
+    }
+
+    public function testGetFilenameThrowsException(): void
+    {
+        $mockRaw = Mockery::mock(\ReflectionClass::class);
+        $mockRaw->shouldReceive('getFileName')->andReturnFalse();
+        $mocked = $this->getInstanceWithReflectionMock(
+            $mockRaw
+        );
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('the reflection class does not have a filename');
+        $mocked->getFileName();
+    }
+
+    public function testGetEndlineThrowsException(): void
+    {
+        $mockRaw = Mockery::mock(\ReflectionClass::class);
+        $mockRaw->shouldReceive('getEndLine')->andReturnFalse();
+        $mocked = $this->getInstanceWithReflectionMock(
+            $mockRaw
+        );
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed getting end line in');
+        $mocked->getEndLine();
+    }
+
+    public function testGetStartlineThrowsException(): void
+    {
+        $mockRaw = Mockery::mock(\ReflectionClass::class);
+        $mockRaw->shouldReceive('getStartLine')->andReturnFalse();
+        $mocked = $this->getInstanceWithReflectionMock(
+            $mockRaw
+        );
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed getting start line in');
+        $mocked->getStartLine();
+    }
+
+    private function getInstanceWithReflectionMock(MockInterface $mock): ReflectionClass
+    {
+        $clone      = clone self::$instance;
+        $reflection = new ReflectionClass(ReflectionClass::class);
+        $property   = $reflection->getProperty('reflectionClass');
+        $property->setAccessible(true);
+        $property->setValue($clone, $mock);
+
+        return $clone;
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        Mockery::close();
     }
 }
