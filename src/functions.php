@@ -87,10 +87,10 @@ function stripos(string $haystack, string $needle): int
  * @param string $needle
  * @param bool   $before_needle
  *
- * @return int
+ * @return string
  */
 
-function strstr(string $haystack, string $needle, bool $before_needle = false): int
+function strstr(string $haystack, string $needle, bool $before_needle = false): string
 {
     $str = \strstr($haystack, $needle, $before_needle);
 
