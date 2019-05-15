@@ -55,5 +55,4 @@ class StrposAndStrrposTest extends TestCase
         $this->expectException(\RuntimeException::class);
         \ts\strrpos('nothere', 'needle');
     }
-
 }
