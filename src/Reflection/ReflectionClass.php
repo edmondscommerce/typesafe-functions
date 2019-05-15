@@ -80,7 +80,7 @@ class ReflectionClass
     {
         $result = $this->reflectionClass->getStartLine();
         if (false === $result) {
-            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+            throw new \RuntimeException('Failed getting start line in ' . __METHOD__);
         }
 
         return $result;
@@ -90,7 +90,7 @@ class ReflectionClass
     {
         $result = $this->reflectionClass->getEndLine();
         if (false === $result) {
-            throw new \RuntimeException('Unexpected error in ' . __METHOD__);
+            throw new \RuntimeException('Failed getting end line in ' . __METHOD__);
         }
 
         return $result;
