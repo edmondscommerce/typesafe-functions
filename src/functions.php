@@ -95,11 +95,15 @@ function strstr(string $haystack, string $needle, bool $before_needle = false): 
     $str = \strstr($haystack, $needle, $before_needle);
 
     if (false === $str && true === $before_needle) {
-        throw new \RuntimeException('Failing finding string before needle "' . $needle . '" in haystack "' . $haystack . '"');
+        throw new \RuntimeException(
+            'Failing finding string before needle "' . $needle . '" in haystack "' . $haystack . '"'
+        );
     }
 
     if (false === $str) {
-        throw new \RuntimeException('Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"');
+        throw new \RuntimeException(
+            'Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"'
+        );
     }
 
     return $str;
