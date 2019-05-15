@@ -24,4 +24,3 @@ function curl_multi_getcontent($ch): string
 {
     return \curl_multi_getcontent($ch);
 }
-

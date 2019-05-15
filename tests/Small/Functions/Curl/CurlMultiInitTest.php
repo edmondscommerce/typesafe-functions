@@ -39,6 +39,4 @@ class CurlMultiInitTest extends TestCase
 //        \ts\curl_multi_getcontent($a);
 //    }
 //
-
-
 }
