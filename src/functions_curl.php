@@ -22,10 +22,6 @@ function curl_multi_init()
  */
 function curl_multi_getcontent($ch): string
 {
-    if(false === \is_resource($ch)){
-        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
-    }
-
     return \curl_multi_getcontent($ch);
 }
 

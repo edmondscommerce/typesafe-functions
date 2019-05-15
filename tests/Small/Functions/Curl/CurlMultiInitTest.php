@@ -18,27 +18,27 @@ class CurlMultiInitTest extends TestCase
         self::assertIsResource(\ts\curl_multi_init());
     }
 
-    /**
-     * @test
-     */
-    public function curlMultiGetContentThrowsExceptionOnFalseTypeInput(): void
-    {
-        $this->expectException(\RuntimeException::class);
-        $ch = null;
-        \ts\curl_multi_getcontent($ch);
-    }
-
-    /**
-     * @test
-     */
-    public function curlMultiGetContentThrowsExceptionOnEmptyCurlInit(): void
-    {
-        $this->expectException(\RuntimeException::class);
-        $ch = curl_init('');
-        $a = curl_exec($ch);
-        \ts\curl_multi_getcontent($a);
-    }
-
+//    /**
+//     * @test
+//     */
+//    public function curlMultiGetContentThrowsExceptionOnFalseTypeInput(): void
+//    {
+//        $this->expectException(\RuntimeException::class);
+//        $ch = null;
+//        \ts\curl_multi_getcontent($ch);
+//    }
+//
+//    /**
+//     * @test
+//     */
+//    public function curlMultiGetContentThrowsExceptionOnEmptyCurlInit(): void
+//    {
+//        $this->expectException(\RuntimeException::class);
+//        $ch = curl_init('');
+//        $a = curl_exec($ch);
+//        \ts\curl_multi_getcontent($a);
+//    }
+//
 
 
 }
