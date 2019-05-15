@@ -2,7 +2,6 @@
 
 namespace ts\Tests\Small\Functions\Curl;
 
-use phpDocumentor\Reflection\Types\Resource_;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,10 +13,32 @@ class CurlMultiInitTest extends TestCase
     /**
      * @test
      */
-    public function (): resource
+    public function curlMutliInitTestReturnsResource(): void
     {
-        self::markTestSkipped('this is a placeholder');
+        self::assertIsResource(\ts\curl_multi_init());
     }
+
+    /**
+     * @test
+     */
+    public function curlMultiGetContentThrowsExceptionOnFalseTypeInput(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $ch = null;
+        \ts\curl_multi_getcontent($ch);
+    }
+
+    /**
+     * @test
+     */
+    public function curlMultiGetContentThrowsExceptionOnEmptyCurlInit(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $ch = curl_init('');
+        $a = curl_exec($ch);
+        \ts\curl_multi_getcontent($a);
+    }
+
 
 
 }
