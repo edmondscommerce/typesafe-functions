@@ -63,7 +63,7 @@ function array_chunk(array $input, int $size, bool $preserve_keys = false): arra
 {
     $result = \array_chunk($input, $size, $preserve_keys);
 
-    if ([] === $result) {
+    if (null === $result) {
         throw new \RuntimeException('Array is empty in ' . __METHOD__);
     }
 

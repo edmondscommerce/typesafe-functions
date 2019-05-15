@@ -55,6 +55,19 @@ class ArrayChunkTest extends TestCase
     /**
      * @test
      */
+    public function itWillThrowAnExceptionWhenANullArrayIsReturned(): void
+    {
+		$this->expectException(\RuntimeException::class);
+		$this->expectExceptionMessage('Array is empty in ts\array_chunk');
+
+        $input = range(1, 9);
+
+        @$actual = \ts\array_chunk($input, 0);
+    }
+
+    /**
+     * @test
+     */
     public function itCanChunkAnArrayInToMultipleValuesAndPreserveTheKeys(): void
     {
         $numbers = range(1, 10);
