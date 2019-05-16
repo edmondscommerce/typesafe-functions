@@ -202,7 +202,6 @@ function varToString($var): string
 }
 
 
-
 /**
  * Replaces \print_r
  *
@@ -310,7 +309,6 @@ function curl_multi_getcontent($ch): string
 }
 
 
-
 /**
  * @param string $filePath
  *
@@ -325,7 +323,6 @@ function file(string $filePath): array
 
     return $result;
 }
-
 
 
 /**
