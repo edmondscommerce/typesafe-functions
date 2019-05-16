@@ -12,8 +12,28 @@ class ArrayCombineTest extends TestCase
     /**
      * @test
      */
-    public function placeholder(): void
+    public function itCombinesTwoArrays(): void
     {
-        self::markTestSkipped('this is a placeholder');
+        $array1 = ['a', 'b', 'c'];
+        $array2 = ['3', '4', '5'];
+
+        $expected = ['a' => '3', 'b' => '4', 'c' => '5'];
+        $actual = \ts\array_combine($array1, $array2);
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function itDoesNotCombineDifferentLengthArrays(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("The number of keys");
+
+        $array1 = ['a', 'b', 'c'];
+        $array2 = ['3', '4', '5', '6'];
+
+        @\ts\array_combine($array1, $array2);
     }
 }
