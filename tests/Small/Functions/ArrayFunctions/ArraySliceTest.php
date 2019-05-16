@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @small
+ * @cover \ts\array_slice
  */
 class ArraySliceTest extends TestCase
 {
