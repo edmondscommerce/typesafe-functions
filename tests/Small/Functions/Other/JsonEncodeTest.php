@@ -29,7 +29,11 @@ class JsonEncodeTest extends TestCase
      */
     public function jsonEncodePassInClassWithPublicPropertiesAndReceiveValues(): void
     {
+
         $encode = new class{
+            /**
+             * @var string
+             */
             public $test = '123';
         };
         $result = \ts\json_encode($encode);
@@ -43,7 +47,13 @@ class JsonEncodeTest extends TestCase
     public function jsonEncodePassInClassWithPrivateAndProtectedPropertiesAndReceiveNoValues(): void
     {
         $encode = new class{
+            /**
+             * @var string
+             */
             protected $test = '123';
+            /**
+             * @var string
+             */
             protected $test2 = '1234';
         };
         $result = \ts\json_encode($encode);
@@ -62,7 +72,7 @@ class JsonEncodeTest extends TestCase
         $result = \ts\json_encode($encode);
         self::assertStringContainsString('{}', $result);
     }
-    
+
     /**
      * @test
      * @small
