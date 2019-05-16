@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ts\Tests\Small;
+namespace ts\Tests\Small\Functions\StringFunctions;
 
 use PHPUnit\Framework\TestCase;
 
@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
  *
  * @package \ts\Tests\Small
  * @covers  \ts\strpos
+ * @covers \ts\strrpos
+ * @covers \ts\stripos
  */
 class StrposAndStrrposTest extends TestCase
 {
@@ -33,6 +35,29 @@ class StrposAndStrrposTest extends TestCase
         $this->expectException(\RuntimeException::class);
         \ts\strpos('nothere', 'needle');
     }
+
+    /**
+     * @test
+     * @small
+     */
+    public function striposCanGetTheStringPosition(): void
+    {
+        $needle   = 'Needle';
+        $haystack = 'haystack_needle_haystack';
+        $expected = 9;
+        $actual   = \ts\stripos($haystack, $needle);
+        self::assertSame($expected, $actual);
+    }
+    /**
+     * @test
+     * @small
+     */
+    public function striposThrowsAnExceptionIfItFailsToFind(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        \ts\stripos('nothere', 'needle');
+    }
+
 
     /**
      * @test
