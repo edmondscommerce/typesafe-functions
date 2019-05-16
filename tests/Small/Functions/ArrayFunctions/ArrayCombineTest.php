@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @small
+ * @covers \ts\array_combine
  */
 class ArrayCombineTest extends TestCase
 {
