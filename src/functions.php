@@ -81,6 +81,35 @@ function stripos(string $haystack, string $needle): int
 }
 
 /**
+ * Replaces \strstr
+ *
+ * @param string $haystack
+ * @param string $needle
+ * @param bool   $before_needle
+ *
+ * @return string
+ */
+
+function strstr(string $haystack, string $needle, bool $before_needle = false): string
+{
+    $str = \strstr($haystack, $needle, $before_needle);
+
+    if (false === $str && true === $before_needle) {
+        throw new \RuntimeException(
+            'Failing finding string before needle "' . $needle . '" in haystack "' . $haystack . '"'
+        );
+    }
+
+    if (false === $str) {
+        throw new \RuntimeException(
+            'Failing finding needle "' . $needle . '" in haystack "' . $haystack . '"'
+        );
+    }
+
+    return $str;
+}
+
+/**
  * Replaces \strpos (1 of 3)
  *
  * To be used when actually looking for the string position
@@ -171,7 +200,6 @@ function varToString($var): string
 {
     return \print_r($var, true);
 }
-
 
 
 /**
@@ -281,7 +309,6 @@ function curl_multi_getcontent($ch): string
 }
 
 
-
 /**
  * @param string $filePath
  *
@@ -296,7 +323,6 @@ function file(string $filePath): array
 
     return $result;
 }
-
 
 
 /**
