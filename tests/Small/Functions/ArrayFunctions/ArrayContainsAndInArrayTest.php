@@ -98,5 +98,4 @@ class ArrayContainsAndInArrayTest extends TestCase
         $needle   = 2;
         self::assertFalse(\ts\in_array($needle, $haystack));
     }
-
 }
