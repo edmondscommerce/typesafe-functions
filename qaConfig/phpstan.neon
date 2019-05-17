@@ -5,3 +5,4 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Strict comparison using === between null and ReflectionClass will always evaluate to false#'
+        - '#Strict comparison using === between false and array<int, string> will always evaluate to false.#'
