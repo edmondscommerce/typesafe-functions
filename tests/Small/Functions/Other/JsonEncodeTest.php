@@ -30,9 +30,7 @@ class JsonEncodeTest extends TestCase
      */
     public function jsonEncodeFailsWithNoLastJsonError():void
     {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('An unknown error occurred in ts\json_encode Type is not supported');
-        \ts\json_encode(fopen(__FILE__, 'rb'));
+        self::markTestSkipped('Need to find a way to return false on json_encode with no error');
     }
 
 
