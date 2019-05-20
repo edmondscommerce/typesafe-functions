@@ -21,7 +21,8 @@
     },
     "files": [
       "src/functions.php",
-      "src/functions_array.php"
+      "src/functions_array.php",
+      "src/functions_files.php"
     ]
   },
   "autoload-dev": {
