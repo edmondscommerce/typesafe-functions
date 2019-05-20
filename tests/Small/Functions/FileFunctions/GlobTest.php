@@ -24,8 +24,7 @@ class GlobTest extends TestCase
      */
     public function itThrowsAnExceptionWhenGlobFails(): void
     {
-        self::markTestSkipped('Can\'t figure out how to make glob fail');
-        $pattern = 'http://www.edmondscommerce.co.uk';
+        $pattern = '/root/*';
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Failed getting glob for pattern: ' . $pattern);
         \ts\glob($pattern);
