@@ -16,7 +16,7 @@ class ArrayChunkTest extends TestCase
     public function itCanChunkAnArrayInToMultipleValuesWithoutPreservingTheKeys(): void
     {
         $numbers = range(1, 10);
-        $letters = str_split('abcdefghij');
+        $letters = range('a', 'j');
 
         $input = \ts\array_combine($letters, $numbers);
 
@@ -72,7 +72,7 @@ class ArrayChunkTest extends TestCase
     public function itCanChunkAnArrayInToMultipleValuesAndPreserveTheKeys(): void
     {
         $numbers = range(1, 10);
-        $letters = str_split('abcdefghij');
+        $letters = range('a', 'j');
 
         $input = \ts\array_combine($letters, $numbers);
 
