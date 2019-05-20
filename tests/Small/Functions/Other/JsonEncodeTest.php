@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @package ts\Tests\Small
- * @covers  \ts\ini_get
+ * @covers  \ts\json_encode
  */
 class JsonEncodeTest extends TestCase
 {
@@ -16,62 +16,14 @@ class JsonEncodeTest extends TestCase
      */
     public function jsonEncodeReturnsAValidString(): void
     {
-        $encode = static function () {
-            return '22';
-        };
-        var_dump(\ts\json_encode($encode));
-        self::assertIsString(\ts\json_encode($encode));
-    }
-
-    /**
-     * @test
-     * @small
-     */
-    public function jsonEncodePassInClassWithPublicPropertiesAndReceiveValues(): void
-    {
-
-        $encode = new class{
-            /**
-             * @var string
-             */
-            public $test = '123';
-        };
+        $expected = '{"test":123}';
+        $encode = [
+            'test'=>123
+        ];
         $result = \ts\json_encode($encode);
-        self::assertStringContainsString('{"test":"123"}', $result);
+        self::assertSame($result, $expected);
     }
 
-    /**
-     * @test
-     * @small
-     */
-    public function jsonEncodePassInClassWithPrivateAndProtectedPropertiesAndReceiveNoValues(): void
-    {
-        $encode = new class{
-            /**
-             * @var string
-             */
-            protected $test = '123';
-            /**
-             * @var string
-             */
-            protected $test2 = '1234';
-        };
-        $result = \ts\json_encode($encode);
-        self::assertStringContainsString('{}', $result);
-    }
-
-    /**
-     * @test
-     * @small
-     */
-    public function jsonEncodePassInClosureAndReceiveNoValues(): void
-    {
-        $encode = static function(){
-            return ['test' => 123];
-        };
-        $result = \ts\json_encode($encode);
-        self::assertStringContainsString('{}', $result);
-    }
 
     /**
      * @test

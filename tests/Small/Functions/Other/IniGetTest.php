@@ -16,18 +16,20 @@ class IniGetTest extends TestCase
      */
     public function initGetReturnsTrueOnCorrectVarname(): void
     {
-        self::assertIsString(\ts\ini_get('post_max_size'));
+        $expected = '8M';
+        $result = \ts\ini_get('post_max_size');
+        self::assertSame($result, $expected);
     }
 
     /**
      * @test
      * @small
      */
-    public function initGetThrowsExceptionOnInvalidVarname(): void
+    public function initGetThrowsExceptionOnInvalidVariableName(): void
     {
-        $varname = 'failedVarname';
+        $variableName = 'failedVariableName';
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed getting '.$varname.' in ts\ini_get');
-        self::assertIsString(\ts\ini_get($varname));
+        $this->expectExceptionMessage('Failed getting '.$variableName.' in ts\ini_get');
+        self::assertIsString(\ts\ini_get($variableName));
     }
 }
