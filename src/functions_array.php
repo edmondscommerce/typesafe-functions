@@ -58,3 +58,14 @@ function array_slice(array $array, int $offset, int $length = null, bool $preser
 
     return $result;
 }
+
+function array_chunk(array $input, int $size, bool $preserve_keys = false): array
+{
+    $result = \array_chunk($input, $size, $preserve_keys);
+
+    if (null === $result) {
+        throw new \RuntimeException('Array is empty in ' . __METHOD__);
+    }
+
+    return $result;
+}
