@@ -37,4 +37,30 @@ class StringStartsWithTest extends TestCase
         $actual   = \ts\stringStartsWith($haystack, $needle);
         self::assertSame($expected, $actual);
     }
+
+    /**
+     * @test
+     * @small
+     */
+    public function itCanConfirmStringStartsWithCaseSensitive(): void
+    {
+        $needle   = 'Needle';
+        $haystack = 'Needle_blah_blah';
+        $expected = true;
+        $actual   = \ts\stringStartsWith($haystack, $needle, true);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @test
+     * @small
+     */
+    public function itCanConfirmFailStringStartsWithCaseSensitive(): void
+    {
+        $needle   = 'Needle';
+        $haystack = 'needle_blah_blah';
+        $expected = false;
+        $actual   = \ts\stringStartsWith($haystack, $needle, true);
+        self::assertSame($expected, $actual);
+    }
 }
