@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace ts\Tests\Small;
+namespace ts\Tests\Small\Functions\StringFunctions;
 
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

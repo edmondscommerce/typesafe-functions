@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ts\Tests\Small;
+namespace ts\Tests\Small\Functions\StringFunctions;
 
 use PHPUnit\Framework\TestCase;
 
@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
  * Class file_get_contents
  *
  * @package \ts\Tests\Small
- * @covers  \ts\strpos
+ * @covers  \ts\strstr
  */
 class StrstrTest extends TestCase
 {

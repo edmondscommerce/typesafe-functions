@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ts\Tests\Small;
+namespace ts\Tests\Small\Functions\File;
 
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class FilePutContentsTest extends TestCase
      */
     public function itCanPutTheContentsOfAFile(): void
     {
-        $filename = __DIR__ . '/../../var/' . __FUNCTION__;
+        $filename = __DIR__ . '/../../../../var/' . __FUNCTION__;
         $expected = __METHOD__;
         $result   = \ts\file_put_contents($filename, $expected);
         self::assertTrue($result);
