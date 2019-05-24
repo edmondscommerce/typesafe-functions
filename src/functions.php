@@ -238,30 +238,6 @@ function strtotime(string $time, int $now = null): int
     return $result;
 }
 
-/**
- * @param string $pattern
- * @param string $replacement
- * @param string $subject
- * @param int    $limit
- * @param int    $count
- *
- * @return string
- */
-function preg_replace(
-    string $pattern,
-    string $replacement,
-    string $subject,
-    int $limit = -1,
-    int &$count = 0
-): string {
-    $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
-    if (null === $result) {
-        throw new \RuntimeException('An unknown error occurred in ' . __METHOD__);
-    }
-
-    return $result;
-}
-
 function realpath(string $path): string
 {
     $result = \realpath($path);
