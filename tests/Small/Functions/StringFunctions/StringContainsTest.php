@@ -37,4 +37,17 @@ class StringContainsTest extends TestCase
         $actual   = \ts\stringContains($haystack, $needle);
         self::assertSame($expected, $actual);
     }
+
+    /**
+     * @test
+     * @small
+     */
+    public function itCanConfirmStringIsNotFoundCaseSensitive(): void
+    {
+        $needle   = 'needle';
+        $haystack = 'haystack_Needle_haystack';
+        $expected = false;
+        $actual   = \ts\stringContains($haystack, $needle, true);
+        self::assertSame($expected, $actual);
+    }
 }

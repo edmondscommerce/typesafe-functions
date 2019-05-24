@@ -18,7 +18,7 @@ class JsonEncodeTest extends TestCase
     {
         $expected = '{"test":123}';
         $encode = [
-            'test'=>123
+            'test' => 123
         ];
         $result = \ts\json_encode($encode);
         self::assertSame($result, $expected);

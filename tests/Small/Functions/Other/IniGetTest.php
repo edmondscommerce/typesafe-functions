@@ -29,7 +29,7 @@ class IniGetTest extends TestCase
     {
         $variableName = 'failedVariableName';
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed getting '.$variableName.' in ts\ini_get');
+        $this->expectExceptionMessage('Failed getting ' . $variableName . ' in ts\ini_get');
         self::assertIsString(\ts\ini_get($variableName));
     }
 }
