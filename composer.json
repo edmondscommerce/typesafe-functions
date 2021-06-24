@@ -4,14 +4,15 @@
   "type": "project",
   "description": "Type safe wrappers around internal functions that return mixed types",
   "require": {
-    "php": "^7.2",
+    "php": "^7.2|^8.0",
     "ext-curl": "*",
     "ext-json": "*"
   },
   "require-dev": {
-    "edmondscommerce/phpqa": "^2.0",
+    "edmondscommerce/phpqa": "dev-php8@dev",
     "mockery/mockery": "^1.2",
-    "phpstan/phpstan-mockery": "^0.11.0"
+    "phpstan/phpstan-mockery": "^0.12.14",
+    "phpmd/phpmd": "dev-master@dev"
   },
   "autoload": {
     "psr-4": {
